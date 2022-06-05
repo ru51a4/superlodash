@@ -20,12 +20,15 @@ function deepclone(obj) {
 
 function eq(a, b) {
     for (let p in a) {
-        if ((/boolean|number|string|null/).test(typeof a[p])) {
-            if (a[p] !== b[p]) {
+        if (typeof a[p] !== typeof b[p]) {
+            return false
+        }
+        if (!(/boolean|number|string|null/).test(typeof a[p])) {
+            if (!eq(a[p], b[p])) {
                 return false;
             }
         } else {
-            if (!eq(a[p], b[p])) {
+            if (a[p] !== b[p]) {
                 return false;
             }
         }
